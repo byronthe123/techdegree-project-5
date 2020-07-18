@@ -92,7 +92,8 @@ $(document).ready(function(){
 
     //*Bonus 1: Search
     //Display the user's search results when searching for a name:
-    $('#search-submit').on('click', function(){
+    $('#search-submit').on('click', function(e) {    
+        e.preventDefault();
         if ($('#search-input').val().length > 0) {
             const searchString = $('#search-input').val();
             filterUsers(searchString);
