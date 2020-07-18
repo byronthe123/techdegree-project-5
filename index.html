@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Public API Requests</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="css/normalize.css" rel="stylesheet">
+        <link href="css/styles.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <!-- =======================
+            Gallery container 
+        ======================== -->
+        <header>
+            <div class="header-inner-container">
+                <div class="header-text-container">
+                    <h1>AWESOME STARTUP EMPLOYEE DIRECTORY</h1>
+                </div>
+                
+                <div class="search-container">
+                    <form action="#" method="get">
+                        <input type="search" id="search-input" class="search-input" placeholder="Search...">
+                        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+                    </form>
+                </div>
+            </div>
+        </header>
+
+        <div id="gallery" class="gallery">
+
+        </div>
+
+            <div class="modal-container" id="modal">
+                <div class="modal">
+                    <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+                    <div class="modal-info-container">
+                        <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
+                        <h3 id="name" class="modal-name cap">name</h3>
+                        <p class="modal-text" id="modal-email">email</p>
+                        <p class="modal-text cap" id="modal-city">city</p>
+                        <hr>
+                        <p class="modal-text" id="modal-phone">(555) 555-5555</p>
+                        <p class="modal-text" id="modal-address">123 Portland Ave., Portland, OR 97204</p>
+                        <p class="modal-text" id="modal-birthDate">Birthday: 10/21/2015</p>
+                    </div>
+                </div>
+
+                <div class="modal-btn-container">
+                    <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                    <button type="button" id="modal-next" class="modal-next btn">Next</button>
+                </div>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+            <script src='script.js'></script>
+    </body>
+</html>
