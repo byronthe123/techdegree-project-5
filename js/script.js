@@ -4,24 +4,24 @@ $(document).ready(function(){
     //Hide the modal:
     $('#modal').hide();
 
-    //Declare arrays for storing API promises and users:
-    const promises = [];
+    //Array to store users
     const users = [];
 
     //Variable used to keep track of the user index while going through users in the modal:
     let userModalIndex;
 
-    //Re-usable API function for fetching user data:
+    // Function to start the app by making an API call and rendering the results:
     const getUsers = () => {
-        return fetch('https://randomuser.me/api/?nat=gb,us')
+        fetch('https://randomuser.me/api/?nat=gb,us&results=12')
             .then(response => response.json())
-            .then(data => data.results[0]);
+            .then(data => {
+                users.push(...data.results);
+                renderUserCards(users);
+            });
     }
 
-    //Push API fetch promises into the promises array:
-    for (let i = 0; i < 12; i++) {
-        promises.push(getUsers());
-    }
+    //Run the getUsers() function:
+    getUsers();
 
     //Empties the gallery div and appends cards based on the users array parameter:
     const renderUserCards = (users) => {
@@ -44,18 +44,18 @@ $(document).ready(function(){
         }
     }
 
-    //Resolve all promises then render cards:
-    Promise.all(promises).then(data => {
-        users.push(...data);
-        renderUserCards(users); 
-    }); 
-
     //Function to format birth date:
     const birthDateFormatter = (_date) => {
         const date = new Date(_date)
         const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: '2-digit', day: '2-digit' }); 
         const [{ value: month },,{ value: day },,{ value: year }] = dateTimeFormat .formatToParts(date); 
         return `${month}/${day}/${year}`;
+    }
+
+    //Since the API does not return all cell phone numbers in the same format, this function normalizes the format of all cell phone numbers:
+    const mobileNumFormatter = (cell) => {
+        const noFormatCell = cell.replace(/[-()]/g, '').replace(/\s/g, '');
+        return noFormatCell.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
     }
 
     //Function to populate the modal with the selected user's info and open the modal:
@@ -65,7 +65,7 @@ $(document).ready(function(){
         $('.modal-info-container #name').html(`${selectedUser.name.first} ${selectedUser.name.last}`);
         $('#modal-email').html(`${selectedUser.email}`);
         $('#modal-city').html(`${selectedUser.location.city}`);
-        $('#modal-phone').html(`${selectedUser.cell}`);
+        $('#modal-phone').html(`${mobileNumFormatter(selectedUser.cell)}`);
         $('#modal-address').html(`${selectedUser.location.street.number} ${selectedUser.location.street.name}, ${selectedUser.location.state}, ${selectedUser.location.country}, ${selectedUser.location.postcode}`);
         $('#modal-birthDate').html(birthDateFormatter(selectedUser.dob.date));
         $('#modal').show();
